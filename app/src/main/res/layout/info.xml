@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@mipmap/inte2"
     android:orientation="vertical"
-    android:id="@+id/lala"
+    android:id="@+id/info_layout"
     android:weightSum="10">
 
     <LinearLayout
@@ -19,11 +19,11 @@
         tools:ignore="RtlHardcoded,RtlSymmetry">
 
         <Button
-            android:id="@+id/bak"
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@mipmap/bak"
+            android:background="@mipmap/back_icon"
             tools:ignore="NestedWeights" />
     </LinearLayout>
 
@@ -43,7 +43,7 @@
         android:layout_height="0dp"
         android:layout_weight="4"
         android:padding="20dp"
-        android:src="@mipmap/log"
+        android:src="@mipmap/logo"
         tools:ignore="ContentDescription" />
 
     <TextView

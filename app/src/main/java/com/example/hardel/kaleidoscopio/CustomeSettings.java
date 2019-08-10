@@ -9,48 +9,52 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-public class CustomeSettings {
+class CustomeSettings {
 
-    private Properties cipemen = new Properties();
-    private FileOutputStream foster;
-    String ruta;
+    private Properties prop = new Properties();
+    private String path;
 
-    private void vah_ruta(){
-        ruta= Environment.getExternalStorageDirectory().getAbsolutePath()+"/Kaleidoscopio/conf";
-        File f=new File(ruta);
+    private void commitChanges(){
+        path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Kaleidoscopio/conf";
+        File f = new File(path);
+
         if(!f.exists()){
             f.mkdirs();
-            cipemen.setProperty("Puntos","3");
-            cipemen.setProperty("ColorPat","ROJO");
-            cipemen.setProperty("ColorEsp","NEGRO");
+
+            prop.setProperty("Puntos", "3");
+            prop.setProperty("ColorPat", "ROJO");
+            prop.setProperty("ColorEsp", "NEGRO");
+
             try {
-                foster=new FileOutputStream(ruta+"/customises.interfaz");
+                FileOutputStream fos = new FileOutputStream(path + "/customises.interfaz");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public void savePreferences(String id, String cambio){
-        vah_ruta();
+    public void savePreferences(String id, String change){
+        commitChanges();
+
         try {
-            cipemen.setProperty(id,cambio);
-            cipemen.store(new FileOutputStream(ruta+"/customises.interfaz"),null);
+            prop.setProperty(id, change);
+            prop.store(new FileOutputStream(path + "/customises.interfaz"),null);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public String getCustomes(String id){
-        vah_ruta();
+        commitChanges();
+
         try {
-            FileInputStream fister=new FileInputStream(ruta+"/customises.interfaz");
-            cipemen.load(fister);
-            fister.close();
+            FileInputStream fis = new FileInputStream(path +"/customises.interfaz");
+            prop.load(fis);
+            fis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return cipemen.getProperty(id);
+        return prop.getProperty(id);
     }
 }

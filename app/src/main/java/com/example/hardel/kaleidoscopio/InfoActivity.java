@@ -9,20 +9,20 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-public class constr extends AppCompatActivity{
+public class InfoActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.infor);
+        setContentView(R.layout.info);
 
         getSupportActionBar().hide();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        estail();
+        style();
 
-        Button bk = (Button) findViewById(R.id.bak);
-        bk.setOnClickListener(new View.OnClickListener() {
+        Button back = findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -30,11 +30,11 @@ public class constr extends AppCompatActivity{
         });
     }
 
-    private void estail(){
-        Animation anni= AnimationUtils.loadAnimation(this,R.anim.magic2);
-        anni.reset();
-        LinearLayout lal= (LinearLayout) findViewById(R.id.lala);
-        lal.clearAnimation();
-        lal.setAnimation(anni);
+    private void style(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.info_anim);
+        anim.reset();
+        LinearLayout linear = findViewById(R.id.info_layout);
+        linear.clearAnimation();
+        linear.setAnimation(anim);
     }
 }
