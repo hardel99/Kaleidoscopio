@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kaleidoscopio</string>
+    <string name="borrar">Borrar</string>
+    <string name="guardar">Guardar</string>
+    <string name="puntos">Puntos</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="n_mero_de_puntos">Número de Puntos:</string>
+    <string name="ok">Ok</string>
+    <string name="seleccionar_color">Seleccionar Color</string>
+    <string name="kaleidoscopio">Kaleidoscopio</string>
+</resources>
