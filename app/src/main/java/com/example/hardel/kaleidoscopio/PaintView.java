@@ -166,10 +166,10 @@ public class PaintView extends View{
         line.reset();
     }
 
-    /*private Point coordinate(float x, float y, double angl){
-        //ra = (float) Math.sqrt( ((float) Math.pow((x-cx),2))+( (float) Math.pow((y-cy),2)));   //obtenemos el radio
+    /*private Point coordinate(float change_point_icon, float y, double angl){
+        //ra = (float) Math.sqrt( ((float) Math.pow((change_point_icon-cx),2))+( (float) Math.pow((y-cy),2)));   //obtenemos el radio
         float a= (float) (Math.sin(Math.toDegrees(angl)) * ra) + y;   //obtenemos y,eje de las abscisas
-        float o = (float) (Math.cos(Math.toDegrees(angl)) * ra) + x;  //obtenemos x, eje de las ordenadas
+        float o = (float) (Math.cos(Math.toDegrees(angl)) * ra) + change_point_icon;  //obtenemos change_point_icon, eje de las ordenadas
         Point afg=new Point((int)o,(int)a);
 
         return afg;

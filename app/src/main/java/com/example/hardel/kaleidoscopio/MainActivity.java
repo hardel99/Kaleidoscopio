@@ -20,10 +20,10 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-    Button saveBtn, lim, pointCounter, cl, cf, info;
-    PaintView pw;
-    int numbef,number;
-    private CustomeSettings kus=new CustomeSettings();
+    Button saveBtn, cleanBtn, pointCounter, lineColorBtn, backgroundColorBtn, infoBtn;
+    PaintView paintView;
+    int pointNumber, actualPointNumber;
+    private CustomeSettings customise = new CustomeSettings();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,41 +33,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         getSupportActionBar().hide();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        estail();
+        style();
 
-        saveBtn = findViewById(R.id.saveBtn);
-        lim = findViewById(R.id.clin);
-        pointCounter = findViewById(R.id.puntos);
-        cl = findViewById(R.id.camlin);
-        cf = findViewById(R.id.camfon);
-        info = findViewById(R.id.inf);
+        saveBtn = findViewById(R.id.save_btn);
+        cleanBtn = findViewById(R.id.clean_btn);
+        pointCounter = findViewById(R.id.point_dialog_btn);
+        lineColorBtn = findViewById(R.id.change_line_btn);
+        backgroundColorBtn = findViewById(R.id.change_background_btn);
+        infoBtn = findViewById(R.id.info_btn);
 
-        pw = (PaintView) findViewById(R.id.pw);
-        pw.setPoints(Integer.parseInt(kus.getCustomes("Puntos")));
-        pw.setBackgroundColor(kus.getCustomes("ColorPat"));
-        pw.setForegroundColor(kus.getCustomes("ColorEsp"),this);
+        paintView = findViewById(R.id.pw);
+        paintView.setPoints(Integer.parseInt(customise.getCustomes("Puntos")));
+        paintView.setBackgroundColor(customise.getCustomes("ColorPat"));
+        paintView.setForegroundColor(customise.getCustomes("ColorEsp"),this);
 
-        number = pw.getPoints();
+        actualPointNumber = paintView.getPoints();
 
-        pointCounter.setText(String.valueOf(number));
+        pointCounter.setText(String.valueOf(actualPointNumber));
 
         saveBtn.setOnClickListener(this);
-        lim.setOnClickListener(this);
+        cleanBtn.setOnClickListener(this);
         pointCounter.setOnClickListener(this);
-        cl.setOnClickListener(this);
-        cf.setOnClickListener(this);
-        info.setOnClickListener(this);
+        lineColorBtn.setOnClickListener(this);
+        backgroundColorBtn.setOnClickListener(this);
+        infoBtn.setOnClickListener(this);
 
 
         /*final float toleran = 4;
-        pw.setOnTouchListener(new View.OnTouchListener() {
+        paintView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                float x=event.getX();
+                float change_point_icon=event.getX();
                 float y=event.getY();
 
                 if(event.getAction()==event.ACTION_MOVE){
-                    boolean tx=x+toleran>event.getX() & x-toleran<event.getX();
+                    boolean tx=change_point_icon+toleran>event.getX() & change_point_icon-toleran<event.getX();
                     boolean ty=y+toleran>event.getY() & y-toleran<event.getY();
                     if(tx & ty){
                         if(!hai){
@@ -85,37 +85,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });*/
     }
 
-    private void estail(){
-        Animation anni= AnimationUtils.loadAnimation(this,R.anim.info_anim);
-        anni.reset();
-        RelativeLayout rel= (RelativeLayout) findViewById(R.id.rele);
+    private void style(){
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.info_anim);
+        anim.reset();
+
+        RelativeLayout rel = findViewById(R.id.rel_lay);
         rel.clearAnimation();
-        rel.startAnimation(anni);
+        rel.startAnimation(anim);
     }
 
-    private void dialogo(){
-        final Dialog dia=new Dialog(this);
-        LayoutInflater lin= (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
-        View sik=lin.inflate(R.layout.point_config, (ViewGroup) findViewById(R.id.relative_main_layout));
-        dia.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dia.setContentView(sik);
-        dia.show();
+    private void displayPointCounter(){
+        final Dialog dialog = new Dialog(this);
+        LayoutInflater li = (LayoutInflater) getSystemService(LAYOUT_INFLATER_SERVICE);
+        assert li != null;
+        View view = li.inflate(R.layout.point_config, (ViewGroup) findViewById(R.id.relative_main_layout));
 
-        final Button canc = (Button) sik.findViewById(R.id.cancel_btn);
-        Button ok = (Button) sik.findViewById(R.id.ok_btn);
-        SeekBar sb= (SeekBar) sik.findViewById(R.id.seek_bar);
-        final TextView h= (TextView) sik.findViewById(R.id.point_number);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        dialog.show();
 
-        sb.setProgress(number);
-        h.setText(String.valueOf(number));
+        final Button cancelBtn = view.findViewById(R.id.cancel_btn);
+        Button okBtn = view.findViewById(R.id.ok_btn);
+        SeekBar sb = view.findViewById(R.id.seek_bar);
+        final TextView pointCount = view.findViewById(R.id.point_number);
+
+        sb.setProgress(actualPointNumber);
+        pointCount.setText(String.valueOf(actualPointNumber));
         sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                numbef =progress;
-                if(numbef<2){
-                    numbef=2;
+                pointNumber = progress;
+                if(pointNumber < 2){
+                    pointNumber = 2;
                 }
-                h.setText(String.valueOf(numbef));
+
+                pointCount.setText(String.valueOf(pointNumber));
             }
 
             @Override
@@ -128,20 +132,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View.OnClickListener ock=new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v==canc){
-                    dia.cancel();
+                if(v == cancelBtn){
+                    dialog.cancel();
                 }else{
-                    number=numbef;
-                    kus.savePreferences("Puntos",""+number);
-                    pw.setPoints(number);
-                    pointCounter.setText(String.valueOf(number));
-                    dia.cancel();
+                    actualPointNumber = pointNumber;
+                    customise.savePreferences("Puntos","" + actualPointNumber);
+                    paintView.setPoints(actualPointNumber);
+                    pointCounter.setText(String.valueOf(actualPointNumber));
+
+                    dialog.cancel();
                 }
             }
         };
 
-        canc.setOnClickListener(ock);
-        ok.setOnClickListener(ock);
+        cancelBtn.setOnClickListener(ock);
+        okBtn.setOnClickListener(ock);
     }
 
     private void colorPicker(final Button btn){
@@ -173,67 +178,67 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     colorPickerDialog.cancel();
                 }else{
                     if (v == redBtn) {
-                        if (btn == cl) {
-                            pw.setBackgroundColor("ROJO");
-                            kus.savePreferences("ColorPat","ROJO");
+                        if (btn == lineColorBtn) {
+                            paintView.setBackgroundColor("ROJO");
+                            customise.savePreferences("ColorPat","ROJO");
                         } else{
-                            als("ROJO");
+                            alert("ROJO");
                         }
                     } else if (v == blueBtn) {
-                        if(btn == cl){
-                            pw.setBackgroundColor("AZUL");
-                            kus.savePreferences("ColorPat","AZUL");
+                        if(btn == lineColorBtn){
+                            paintView.setBackgroundColor("AZUL");
+                            customise.savePreferences("ColorPat","AZUL");
                         } else{
-                            als("AZUL");
+                            alert("AZUL");
                         }
                     } else if(v == greenBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("VERDE");
-                            kus.savePreferences("ColorPat","VERDE");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("VERDE");
+                            customise.savePreferences("ColorPat","VERDE");
                         } else{
-                            als("VERDE");
+                            alert("VERDE");
                         }
                     } else if(v == yellowBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("PASTEL");
-                            kus.savePreferences("ColorPat","PASTEL");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("PASTEL");
+                            customise.savePreferences("ColorPat","PASTEL");
                         } else{
-                            als("PASTEL");
+                            alert("PASTEL");
                         }
                     }else if(v == interfazBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("INTERFAZ");
-                            kus.savePreferences("ColorPat","INTERFAZ");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("INTERFAZ");
+                            customise.savePreferences("ColorPat","INTERFAZ");
                         } else{
-                            als("INTERFAZ");
+                            alert("INTERFAZ");
                         }
                     }else if(v == brownBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("CAFE");
-                            kus.savePreferences("ColorPat","CAFE");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("CAFE");
+                            customise.savePreferences("ColorPat","CAFE");
                         } else{
-                            als("CAFE");
+                            alert("CAFE");
                         }
                     } else if(v == whiteBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("BLANCO");
-                            kus.savePreferences("ColorPat","BLANCO");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("BLANCO");
+                            customise.savePreferences("ColorPat","BLANCO");
                         } else{
-                            als("BLANCO");
+                            alert("BLANCO");
                         }
                     } else if(v == grayBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("GRIS");
-                            kus.savePreferences("ColorPat","GRIS");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("GRIS");
+                            customise.savePreferences("ColorPat","GRIS");
                         } else{
-                            als("GRIS");
+                            alert("GRIS");
                         }
                     } else if(v == blackBtn) {
-                        if(btn == cl) {
-                            pw.setBackgroundColor("NEGRO");
-                            kus.savePreferences("ColorPat","NEGRO");
+                        if(btn == lineColorBtn) {
+                            paintView.setBackgroundColor("NEGRO");
+                            customise.savePreferences("ColorPat","NEGRO");
                         } else{
-                            als("NEGRO");
+                            alert("NEGRO");
                         }
                     }
 
@@ -256,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         colorPickerDialog.show();
     }
 
-    private void als(final String color){
+    private void alert(final String color){
         final AlertDialog ad = new AlertDialog.Builder(this).create();
         ad.setTitle(null);
         ad.setMessage("Si cambias de color de fondo todo tu dibujo se perdera, ¿quieres continuar?");
@@ -266,8 +271,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                pw.setForegroundColor(color, c);
-                kus.savePreferences("ColorEsp", color);
+                paintView.setForegroundColor(color, c);
+                customise.savePreferences("ColorEsp", color);
                 ad.dismiss();
             }
 
@@ -287,21 +292,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        //cant use switch cause my buttons aren't final
-
         if(v == saveBtn){
-            pw.saveFile(getApplicationContext());    //Save the file
-        }else if(v == lim){
-            pw.clean();                             //Clean the screen
-            pw.setForegroundColor(kus.getCustomes("ColorEsp"),this);
-            pw.setBackgroundColor(kus.getCustomes("ColorPat"));
+            paintView.saveFile(getApplicationContext());                    //Save the file
+        }else if(v == cleanBtn){
+            paintView.clean();                                              //Clean the screen
+            paintView.setForegroundColor(customise.getCustomes("ColorEsp"),this);
+            paintView.setBackgroundColor(customise.getCustomes("ColorPat"));
         }else if(v == pointCounter){
-            dialogo();                              //Change number of points
-        }else if(v == cl){
-            colorPicker(cl);                        //Foreground color
-        }else if(v == cf){
-            colorPicker(cf);                        //Background color
-        }else if(v == info){
+            displayPointCounter();                                          //Change actualPointNumber of points
+        }else if(v == lineColorBtn){
+            colorPicker(lineColorBtn);                                      //Foreground color
+        }else if(v == backgroundColorBtn){
+            colorPicker(backgroundColorBtn);                                //Background color
+        }else if(v == infoBtn){
             Intent it=new Intent(this, InfoActivity.class);    //Info View
             startActivity(it);
         }

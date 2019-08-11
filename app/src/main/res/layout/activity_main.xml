@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rele"
+    android:id="@+id/rel_lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.hardel.kaleidoscopio.MainActivity">
@@ -18,7 +18,7 @@
         android:weightSum="11">
 
         <LinearLayout
-            android:id="@+id/llh"
+            android:id="@+id/horizontal_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -27,53 +27,53 @@
             tools:ignore="UselessParent">
 
             <Button
-                android:id="@+id/saveBtn"
+                android:id="@+id/save_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/save"
+                android:background="@mipmap/save_icon"
                 tools:ignore="ButtonStyle,NestedWeights" />
 
             <Button
-                android:id="@+id/clin"
+                android:id="@+id/clean_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/delete"
+                android:background="@mipmap/delete_icon"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/puntos"
+                android:id="@+id/point_dialog_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/x"
+                android:background="@mipmap/change_point_icon"
                 android:textSize="13sp"
                 android:textStyle="bold"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/camfon"
+                android:id="@+id/change_background_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/cf"
+                android:background="@mipmap/change_background_icon"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/camlin"
+                android:id="@+id/change_line_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/cl"
+                android:background="@mipmap/change_line_icon"
                 tools:ignore="ButtonStyle" />
 
             <Button
-                android:id="@+id/inf"
+                android:id="@+id/info_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:background="@mipmap/in"
+                android:background="@mipmap/info_icon"
                 tools:ignore="ButtonStyle" />
 
         </LinearLayout>

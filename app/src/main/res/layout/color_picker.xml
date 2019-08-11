@@ -32,21 +32,21 @@
             android:id="@+id/red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul"
+            android:background="@drawable/red_circle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_green"
+            android:background="@drawable/green_circle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/brown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_k"
+            android:background="@drawable/brown_circle"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
@@ -61,21 +61,21 @@
             android:id="@+id/blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_blue"
+            android:background="@drawable/blue_circle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/interfaz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_interf"
+            android:background="@drawable/interfaz_circle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_yellow"
+            android:background="@drawable/yellow_circle"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
@@ -90,21 +90,21 @@
             android:id="@+id/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_b"
+            android:background="@drawable/black_circle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/gray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_gr"
+            android:background="@drawable/gray_cricle"
             tools:ignore="ButtonStyle" />
 
         <Button
             android:id="@+id/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/sircul_white"
+            android:background="@drawable/white_circle"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 
