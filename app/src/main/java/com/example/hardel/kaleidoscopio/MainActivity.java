@@ -1,7 +1,6 @@
 package com.example.hardel.kaleidoscopio;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         paintView = findViewById(R.id.pw);
         paintView.setPoints(Integer.parseInt(customise.getCustomes("Puntos")));
         paintView.setBackgroundColor(customise.getCustomes("ColorPat"));
-        paintView.setForegroundColor(customise.getCustomes("ColorEsp"),this);
+        paintView.setForegroundColor(customise.getCustomes("ColorEsp"));
 
         actualPointNumber = paintView.getPoints();
 
@@ -57,32 +56,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         lineColorBtn.setOnClickListener(this);
         backgroundColorBtn.setOnClickListener(this);
         infoBtn.setOnClickListener(this);
-
-
-        /*final float toleran = 4;
-        paintView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                float change_point_icon=event.getX();
-                float y=event.getY();
-
-                if(event.getAction()==event.ACTION_MOVE){
-                    boolean tx=change_point_icon+toleran>event.getX() & change_point_icon-toleran<event.getX();
-                    boolean ty=y+toleran>event.getY() & y-toleran<event.getY();
-                    if(tx & ty){
-                        if(!hai){
-                            ll.setVisibility(View.VISIBLE);
-                            hai=true;
-                        }else{
-                            ll.setVisibility(View.GONE);
-                            hai=false;
-                        }
-                    }
-                }
-
-                return false;
-            }
-        });*/
     }
 
     private void style(){
@@ -171,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         final Button blackBtn = customView.findViewById(R.id.black);
         final Button cancelBtn = customView.findViewById(R.id.cancel_btn);
 
-        View.OnClickListener ocl=new View.OnClickListener() {
+        View.OnClickListener ocl = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (v == cancelBtn){
@@ -266,12 +239,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ad.setTitle(null);
         ad.setMessage("Si cambias de color de fondo todo tu dibujo se perdera, ¿quieres continuar?");
 
-        final Context c = this;
         ad.setButton(AlertDialog.BUTTON_POSITIVE,"OK",new DialogInterface.OnClickListener(){
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                paintView.setForegroundColor(color, c);
+                paintView.setForegroundColor(color);
                 customise.savePreferences("ColorEsp", color);
                 ad.dismiss();
             }
@@ -296,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             paintView.saveFile(getApplicationContext());                    //Save the file
         }else if(v == cleanBtn){
             paintView.clean();                                              //Clean the screen
-            paintView.setForegroundColor(customise.getCustomes("ColorEsp"),this);
+            paintView.setForegroundColor(customise.getCustomes("ColorEsp"));
             paintView.setBackgroundColor(customise.getCustomes("ColorPat"));
         }else if(v == pointCounter){
             displayPointCounter();                                          //Change actualPointNumber of points

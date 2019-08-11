@@ -33,7 +33,7 @@ class CustomeSettings {
         }
     }
 
-    public void savePreferences(String id, String change){
+    void savePreferences(String id, String change){
         commitChanges();
 
         try {
@@ -44,7 +44,7 @@ class CustomeSettings {
         }
     }
 
-    public String getCustomes(String id){
+    String getCustomes(String id){
         commitChanges();
 
         try {

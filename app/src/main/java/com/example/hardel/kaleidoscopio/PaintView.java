@@ -1,5 +1,6 @@
 package com.example.hardel.kaleidoscopio;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -37,8 +38,6 @@ public class PaintView extends View{
     private Path[] bit = new Path[reflections];
     private Point[] dXY = new Point[reflections];
     private float angle, counter;
-    private Color lineColor = new Color();
-    private Color backgroundColor = new Color();
 
     //Line RGB
     int r = 255;
@@ -143,8 +142,8 @@ public class PaintView extends View{
 
         if(dx >= TOLERANCE || dy >= TOLERANCE){
             for (int i = 0; i< reflections; i++){
-                d = coordinate(x,y, counter);
-                bit[i].quadTo(dXY[i].x, dXY[i].y,(dXY[i].x+d.x)/2,(dXY[i].y+d.y)/2);
+                d = coordinate(x, y, counter);
+                bit[i].quadTo(dXY[i].x, dXY[i].y,(dXY[i].x + d.x) / 2f,(dXY[i].y + d.y) / 2f);
                 dXY[i] = d;
                 counter += angle;
             }
@@ -166,15 +165,6 @@ public class PaintView extends View{
         line.reset();
     }
 
-    /*private Point coordinate(float change_point_icon, float y, double angl){
-        //ra = (float) Math.sqrt( ((float) Math.pow((change_point_icon-cx),2))+( (float) Math.pow((y-cy),2)));   //obtenemos el radio
-        float a= (float) (Math.sin(Math.toDegrees(angl)) * ra) + y;   //obtenemos y,eje de las abscisas
-        float o = (float) (Math.cos(Math.toDegrees(angl)) * ra) + change_point_icon;  //obtenemos change_point_icon, eje de las ordenadas
-        Point afg=new Point((int)o,(int)a);
-
-        return afg;
-    }*/
-
     private Point coordinate(float x, float y, float angle){
         matrix.setRotate(angle, screen.exactCenterX(), screen.exactCenterY());
 
@@ -189,7 +179,7 @@ public class PaintView extends View{
 
     public void setPoints(int n){
         reflections = n;
-        angle = 360f/ reflections;
+        angle = 360f / reflections;
     }
 
     public int getPoints(){
@@ -251,7 +241,7 @@ public class PaintView extends View{
         }
     }
 
-    public void setForegroundColor(String color, Context c){
+    public void setForegroundColor(String color){
         switch (color){
             case "ROJO":
                 bR = 171;
@@ -306,6 +296,7 @@ public class PaintView extends View{
         }
     }
 
+    @SuppressLint("ShowToast")
     public void saveFile(Context context){
         String path = Environment.getExternalStorageDirectory().getAbsolutePath() + "/Kaleidoscopio/Imagenes";
         File file = new File(path);
@@ -316,6 +307,7 @@ public class PaintView extends View{
         }
 
         try {
+            @SuppressLint("SimpleDateFormat")
             File fullPath = new File(path + "/" + new SimpleDateFormat("ddMMyyyy__HHmm").format(new Date()) + ".png");
             FileOutputStream fos=new FileOutputStream(fullPath);
             bt.compress(Bitmap.CompressFormat.PNG,100, fos);
@@ -335,11 +327,12 @@ public class PaintView extends View{
 
     public void clean(){
         setDrawingCacheEnabled(false);
-        onSizeChanged(width,height,width,height);
+        onSizeChanged(width, height, width, height);
         invalidate();
         setDrawingCacheEnabled(true);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
